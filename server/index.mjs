@@ -2,7 +2,7 @@ import express from "express";
 import expressWs from "express-ws";
 
 const app = express();
-const port = 202137;
+const port = 65534;
 const wsMain = expressWs(app);
 let ropeX = 0;
 
