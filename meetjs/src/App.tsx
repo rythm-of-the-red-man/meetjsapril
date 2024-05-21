@@ -1,4 +1,3 @@
-import { useState } from "react";
 import bg from "/bg.jpg";
 import rock from "/rock.png";
 import "./App.css";
