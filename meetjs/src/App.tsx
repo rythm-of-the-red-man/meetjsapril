@@ -5,16 +5,16 @@ import useWebSocket from "react-use-websocket";
 
 function App() {
   const { sendMessage, lastMessage, readyState } = useWebSocket(
-    "ws://localhost:3000/red",
+    "ws://frog01.mikr.us:22077/app/red",
   );
   const { sendMessage: pullBlue, readyState: readyStateBlue } = useWebSocket(
-    "ws://localhost:3000/blue",
+    "ws://frog01.mikr.us:22077/blue",
   );
   const reset = async () => {
     const requestOptions = {
       method: "POST",
     };
-    await fetch("http://localhost:3000/reset", requestOptions);
+    await fetch("http://frog01.mikr.us:22077/app/reset", requestOptions);
   };
   const position = parseInt(lastMessage?.data || "0") * 10;
   return (
