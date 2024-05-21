@@ -5,14 +5,16 @@ import useWebSocket from "react-use-websocket";
 import { useEffect, useState } from "react";
 
 function App() {
-  const { sendMessage, lastMessage, readyState } = useWebSocket(
-    "ws://frog01.mikr.us:22077/app/red",
-  );
   const {
     sendMessage: pullBlue,
     lastMessage: lastMessageBlue,
     readyState: readyStateBlue,
   } = useWebSocket("ws://frog01.mikr.us:22077/app/blue");
+  // const {
+  //   sendMessage: pullRed,
+  //   lastMessage: lastMessageRed,
+  //   readyState: readyStateRed,
+  // } = useWebSocket("ws://frog01.mikr.us:22077/app/red");
   const [position, setPosition] = useState(0);
   const reset = async () => {
     const requestOptions = {
@@ -20,9 +22,10 @@ function App() {
     };
     await fetch("http://frog01.mikr.us:22077/app/reset", requestOptions);
   };
-  useEffect(() => {
-    setPosition(parseInt(lastMessage?.data || "0") * 10);
-  }, [lastMessage]);
+  // useEffect(() => {
+  //   console.log(lastMessageRed);
+  //   setPosition(parseInt(lastMessageRed?.data || "0") * 10);
+  // }, [lastMessageRed]);
 
   useEffect(() => {
     setPosition(parseInt(lastMessageBlue?.data || "0") * 10);
@@ -53,12 +56,9 @@ function App() {
           marginTop: "100px",
         }}
       >
-        <button
-          disabled={readyState !== 1}
-          onClick={() => sendMessage("pull!")}
-        >
+        {/* <button disabled={readyStateRed !== 1} onClick={() => pullRed("pull!")}>
           Pull Red!
-        </button>
+        </button> */}
         <button
           disabled={readyStateBlue !== 1}
           onClick={() => pullBlue("pull!")}
