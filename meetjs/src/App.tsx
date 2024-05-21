@@ -8,7 +8,7 @@ function App() {
     "ws://frog01.mikr.us:22077/app/red",
   );
   const { sendMessage: pullBlue, readyState: readyStateBlue } = useWebSocket(
-    "ws://frog01.mikr.us:22077/blue",
+    "ws://frog01.mikr.us:22077/app/blue",
   );
   const reset = async () => {
     const requestOptions = {
