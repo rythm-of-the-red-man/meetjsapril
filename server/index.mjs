@@ -15,7 +15,9 @@ app.post("/app/reset", (req, res) => {
 app.ws("/app/red", function (ws, req) {
   ws.on("message", function (msg) {
     ropeX += 1;
-    ws.send(ropeX);
+    for (let client of wsMain.getWss().clients) {
+      client.send(ropeX);
+    }
   });
 });
 
