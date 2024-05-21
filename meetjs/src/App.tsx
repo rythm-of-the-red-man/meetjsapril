@@ -2,21 +2,31 @@ import bg from "/bg.jpg";
 import rock from "/rock.png";
 import "./App.css";
 import useWebSocket from "react-use-websocket";
+import { useEffect, useState } from "react";
 
 function App() {
   const { sendMessage, lastMessage, readyState } = useWebSocket(
     "ws://frog01.mikr.us:22077/app/red",
   );
-  const { sendMessage: pullBlue, readyState: readyStateBlue } = useWebSocket(
-    "ws://frog01.mikr.us:22077/app/blue",
-  );
+  const {
+    sendMessage: pullBlue,
+    lastMessage: lastMessageBlue,
+    readyState: readyStateBlue,
+  } = useWebSocket("ws://frog01.mikr.us:22077/app/blue");
+  const [position, setPosition] = useState(0);
   const reset = async () => {
     const requestOptions = {
       method: "POST",
     };
     await fetch("http://frog01.mikr.us:22077/app/reset", requestOptions);
   };
-  const position = parseInt(lastMessage?.data || "0") * 10;
+  useEffect(() => {
+    setPosition(parseInt(lastMessage?.data || "0") * 10);
+  }, [lastMessage]);
+
+  useEffect(() => {
+    setPosition(parseInt(lastMessageBlue?.data || "0") * 10);
+  }, [lastMessageBlue]);
   return (
     <>
       <div
