@@ -12,6 +12,7 @@ app.post("/app/reset", (req, res) => {
   for (let client of wsMain.getWss().clients) {
     client.send(ropeX);
   }
+  res.sendStatus(200);
 });
 
 app.get("/app/initial", (req, res) => {
