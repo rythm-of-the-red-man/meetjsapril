@@ -12,9 +12,15 @@ app.post("/app/reset", (req, res) => {
     client.send(ropeX);
   }
 });
+
+app.post("/app/reset", (req, res) => {
+  res.send(ropeX);
+});
 app.ws("/app/red", function (ws, req) {
   ws.on("message", function (msg) {
-    ropeX += 1;
+    if (ropeX > -20 && ropeX < 20) {
+      ropeX += 1;
+    }
     for (let client of wsMain.getWss().clients) {
       client.send(ropeX);
     }
@@ -23,7 +29,10 @@ app.ws("/app/red", function (ws, req) {
 
 app.ws("/app/blue", function (ws, req) {
   ws.on("message", function (msg) {
-    ropeX -= 1;
+    if (ropeX > -20 && ropeX < 20) {
+      ropeX -= 1;
+    }
+
     for (let client of wsMain.getWss().clients) {
       client.send(ropeX);
     }
